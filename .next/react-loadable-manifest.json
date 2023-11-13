@@ -1,0 +1,14 @@
+{
+  "index.jsx -> ../components/Modal": {
+    "id": "index.jsx -> ../components/Modal",
+    "files": [
+      "static/chunks/components_Modal_jsx.js"
+    ]
+  },
+  "liquidity.jsx -> ../components/Modal": {
+    "id": "liquidity.jsx -> ../components/Modal",
+    "files": [
+      "static/chunks/components_Modal_jsx.js"
+    ]
+  }
+}
