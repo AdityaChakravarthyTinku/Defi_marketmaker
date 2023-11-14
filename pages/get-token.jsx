@@ -2,7 +2,7 @@ import { useEthers } from "../context/EthersContext"
 import Button from "../components/Button"
 import { useState } from "react"
 import Link from "next/link"
-
+require("dotenv").config({ path: ".env" });
 import { ethers } from "ethers"
 import Erc20 from "../contracts/Erc20.json"
 
@@ -41,12 +41,17 @@ export default function GetToken() {
       console.log(e);
     }
   }
-
+  //const hexValue='0x0Bc260a9F16ed6C34D0c8B791c17a8cC43269E36'
+  //const NEXT_PUBLIC_TOKEN_WALLET=ethers.utils.hexlify(hexValue)
+  const  METAMASK_PRIVATEKEY='3b52897d72ef6528e295acccebc4e8b4f234f6aeaadb8e104e7bc3e64c354b59'
   async function transferToken(tokenAddress) {
+  
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = new ethers.Wallet(process.env.NEXT_PUBLIC_TOKEN_WALLET, provider)
+    console.log("Private Key:",METAMASK_PRIVATEKEY);
+    const signer = new ethers.Wallet(METAMASK_PRIVATEKEY, provider);
+    
     const token = new ethers.Contract(tokenAddress, Erc20.abi, signer)
-
+  
     setLoading(true)
     try {
       if (!account || !isValidChain())
