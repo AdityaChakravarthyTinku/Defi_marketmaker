@@ -31,6 +31,11 @@ export default function Liquidity() {
   const [poolAddress, setPoolAddress] = useState() // exchange
   const [loading, setLoading] = useState(false)
 
+  // const [pooltokenBalance, setpoolTokenBalance] = useState(0);
+  // const [poolbnbBalance, setpoolBnbBalance] = useState(0);
+// ... other token balances
+
+
   const { account, isValidChain, requestAccount, setNotificationStatus } = useEthers()
 
   const provider = new ethers.providers.JsonRpcProvider("https://data-seed-prebsc-1-s1.binance.org:8545");
@@ -64,6 +69,9 @@ export default function Liquidity() {
   useEffect(() => {
     liquidityRate !== 0 && setBnbAmount((tokenAmount / liquidityRate).toString())
   }, [tokenAmount])
+  // useEffect(() => {
+  //   liquidityRate !== 0 && setTokenAmount((bnbAmount / liquidityRate).toString())
+  // }, [bnbAmount])
 
   async function refreshRate() {
     const exchange = new ethers.Contract(poolAddress, Exchange.abi, provider)
@@ -204,6 +212,8 @@ export default function Liquidity() {
           <LiquidityInput onChange={handleLpInput} value={lpAmount} disabled={!poolAddress || poolAddress == 0} tokenAddress={poolAddress}>LP tokens</LiquidityInput>
           <Button loading={loading} disabled={!poolAddress || lpAmount == "" || loading} onClick={removeLiquidity}>Remove liquidity</Button>
         </div>
+        <p>Present Liquidity Rate :{liquidityRate}</p>
+
       </MainCard>
 
       <Link className="absolute bottom-0 left-0" href="/get-token">

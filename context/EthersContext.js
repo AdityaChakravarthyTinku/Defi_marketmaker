@@ -13,6 +13,7 @@ export default function EthersProvider({ children }) {
   const [account, setAccount] = useState(null)
   const [chainId, setChainId] = useState(null)
   const [notificationStatus, setNotificationStatus] = useState({ show: false, error: false })
+  const [transactionHistory, setTransactionHistory] = useState({show:true});
   const validChainId = "0x61" // BSC testnet
 
   async function requestAccount() {
@@ -49,6 +50,9 @@ export default function EthersProvider({ children }) {
 
   function decToHex(number) {
     return `0x${parseInt(number).toString(16)}`
+  }
+  function addTransactionToHistory(transaction) {
+    setTransactionHistory((prevHistory) => [...prevHistory, transaction]);
   }
 
   async function switchOrCreateNetwork(chainIdHex, chainName, rpcUrl, currency, explorer) {
@@ -92,12 +96,24 @@ export default function EthersProvider({ children }) {
     window.ethereum.on("accountsChanged", (accounts) => {
       const address = accounts[0]
       setAccount(address)
+      alert("Account Changed")
     })
 
     window.ethereum.on("chainChanged", newChain => {
       setChainId(decToHex(newChain))
+
     })
-  }, [])
+    window.ethereum.on("transactionHash", (hash) => {
+      // Assuming you have a transaction object with relevant information
+      const transaction = {
+        hash,
+        from: account,
+        to: account,
+      };
+
+      addTransactionToHistory(transaction);
+    });
+    }, [account])
 
   return (
     <EthersContext.Provider
@@ -110,6 +126,7 @@ export default function EthersProvider({ children }) {
         isValidChain,
         notificationStatus,
         setNotificationStatus,
+        transactionHistory,
       }}
     >
       {children}

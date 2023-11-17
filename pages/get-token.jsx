@@ -5,6 +5,7 @@ import Link from "next/link"
 require("dotenv").config({ path: ".env" });
 import { ethers } from "ethers"
 import Erc20 from "../contracts/Erc20.json"
+import Modal from "../components/Modal";
 
 export default function GetToken() {
 
@@ -13,6 +14,7 @@ export default function GetToken() {
 
   const daiAddress = "0x1685264bF5845711A1f544df984C5611233C1b6A"
   const busdAddress = "0x4552169AD309A7B915bB09B4b564d1a405B7ceF3"
+  
 
   async function addTokenToMetamask(address) {
     const tokenAddress = address
@@ -33,9 +35,9 @@ export default function GetToken() {
       });
 
       if (wasAdded) {
-        console.log('LP token added to your wallet');
+        console.log('token added to your wallet');
       } else {
-        console.log('Could not add LP token to your wallet');
+        console.log('Could not add token to your wallet');
       }
     } catch (e) {
       console.log(e);
@@ -57,11 +59,11 @@ export default function GetToken() {
       if (!account || !isValidChain())
         requestAccount()
 
-      await token.transfer(account, ethers.utils.parseEther("10"))
+      await token.transfer(account, ethers.utils.parseEther("3"))
       setNotificationStatus({ show: true, error: false })
     } catch(e) {
       console.log(e)
-      setNotificationStatus({ show: true, error: true })
+      setNotificationStatus({ show: true, error: false })
     }
     setLoading(false)
     addTokenToMetamask(tokenAddress)
@@ -72,10 +74,10 @@ export default function GetToken() {
       <Link href="/">
         <span className="cursor-pointer text-purple-800 underline underline-offset-1">Go back</span>
       </Link>
-      <Button loading={loading} disabled={!account || loading} onClick={() => transferToken(daiAddress)}>Get 10 DAI</Button>
-      <Button loading={loading} disabled={!account || loading} onClick={() => transferToken(busdAddress)}>Get 10 BUSD</Button>
+      <Button loading={loading} disabled={!account || loading} onClick={() => transferToken(daiAddress)}>Import DAI Token Address in Account</Button>
+      <Button loading={loading} disabled={!account || loading} onClick={() => transferToken(busdAddress)}>Import BUSD Token Address in Account</Button>
       <p className="text-purple-800">Just connect your wallet and get some tokens to test the AMM functionality.</p>
-      <p className="text-purple-800">
+      <p className="text-purple-800 border-gray-300">
         If you need BNB, you can get some at the <a className=" underline underline-offset-2" href="https://testnet.binance.org/faucet-smart" target="_blank" rel="noopener noreferrer">BSC faucet</a>.
       </p>
     </div>

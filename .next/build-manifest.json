@@ -30,11 +30,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/get-token": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/get-token.js"
-    ],
     "/liquidity": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

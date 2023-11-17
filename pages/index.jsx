@@ -186,6 +186,8 @@ export default function Home() {
             Swap
           </Button>
         }
+              <p>Present Rate of Exchange :{fromToRate}</p>
+
       </MainCard>
 
       <Link className="absolute bottom-0 left-0" href="/get-token">

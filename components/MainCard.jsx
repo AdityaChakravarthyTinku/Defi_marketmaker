@@ -6,6 +6,7 @@ export default function MainCard({ title, description, children }) {
     <div className="mt-12 md:mt-0">
       {/* Select option */}
       <div className="border border-purple-900 rounded-tl-lg rounded-tr-lg border-opacity-50 grid grid-cols-2">
+        
         <Link href="/">
           <button className={`py-3 border-r rounded-tl-lg border-purple-900 border-opacity-50 text-purple-900 hover:bg-purple-50 ${title === "Swap" && "bg-purple-100"}`}>
             Swap
