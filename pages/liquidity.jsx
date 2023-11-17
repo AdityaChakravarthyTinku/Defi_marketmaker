@@ -18,7 +18,7 @@ const Modal = dynamic(
   { ssr: false }
 )
 
-const registryAddress = "0xDEa3108cdeeC65712606bc692A173A983435223e"
+const contract_address = "0xDEa3108cdeeC65712606bc692A173A983435223e"
 
 export default function Liquidity() {
 
@@ -44,7 +44,7 @@ export default function Liquidity() {
     if (!pool.address)
       return
 
-    const registry = new ethers.Contract(registryAddress, Registry.abi, provider)
+    const registry = new ethers.Contract(contract_address, Registry.abi, provider)
     let exchangeAddress
     try {
       exchangeAddress = await registry.getExchange(pool.address)
@@ -138,7 +138,7 @@ export default function Liquidity() {
       let exchangeAddress, tx
 
       if (createPool) {
-        const registry = new ethers.Contract(registryAddress, Registry.abi, signer)
+        const registry = new ethers.Contract(contract_address, Registry.abi, signer)
         tx = await registry.createExchange(pool.address)
         await tx.wait()
         exchangeAddress = await registry.getExchange(pool.address)
